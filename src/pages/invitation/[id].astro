@@ -1,0 +1,97 @@
+---
+import Base from "../../layouts/Base.astro";
+import HandwrittenDate from "../../components/HandwrittenDate.jsx";
+import LocationSection from "../../components/LocationSection.jsx";
+import WeddingTimeline from "../../components/WeddingTimeline.jsx";
+import WeddingDetails from "../../components/WeddingDetails.jsx";
+import CountdownCard from "../../components/CountdownCard.jsx";
+import DressCode from "../../components/DressCode.jsx";
+import guests from "../../data/guests.json";
+
+export function getStaticPaths() {
+  return guests.map((guest) => ({
+    params: { id: guest.id },
+  }));
+}
+
+const { id } = Astro.params;
+const guest = guests.find((g) => g.id === id);
+const guestName = guest ? guest.name : "Invitado Especial";
+---
+
+<Base>
+  <main class="bg-wine min-h-screen flex justify-center">
+    <div class="w-full max-w-md bg-paper">
+
+      <!-- HERO / SOBRE -->
+      <section class="relative overflow-hidden">
+        <img
+          src="/photos/boda.png"
+          alt="Invitación de boda"
+          class="w-full block"
+        />
+
+        <!-- Degradado inferior -->
+        <div
+          class="pointer-events-none absolute bottom-0 left-0 right-0 h-24
+                 bg-gradient-to-b from-transparent via-paper/70 to-paper">
+        </div>
+
+          <!-- Overlay: SOLO título y estimado arriba -->
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-full text-center px-4 pointer-events-none"  style="top: 80px;">
+            <p class="name-script text-[32px] text-wine">
+            Invitación Especial
+            </p>
+        </div>
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 w-full text-center px-4 pointer-events-none" style="top: 410px;">
+            <p class="text-sm text-gray-500 mt-2">
+            Estimado/a
+            </p>
+        </div>
+
+        <!-- Texto sobre el sobre -->
+         <!-- ✅ Invitado: colocado debajo del logo (porque el logo está en la imagen) -->
+        <div class="absolute left-1/2 -translate-x-1/2 w-full text-center px-6 pointer-events-none"
+            style="top: 440px;">
+            <p class="name-script text-[34px] text-wine drop-shadow-[0_1px_0_rgba(255,255,255,0.7)]">
+            {guestName}
+            </p>
+        </div>
+      </section>
+
+      <!-- FECHA -->
+      <section class="pt-6 pb-2">
+        <HandwrittenDate month="Enero" client:load />
+      </section>
+
+      <!-- UBICACIÓN -->
+      <section class="pt-6">
+        <LocationSection client:load />
+      </section>
+
+      <!-- TIMELINE -->
+      <section class="pt-6">
+        <WeddingTimeline client:load />
+      </section>
+
+      <section class="pt-6">
+        <DressCode client:load />
+      </section>
+
+      <!-- DETALLES -->
+      <section class="pt-10">
+        <WeddingDetails guestId={id} client:load />
+
+      </section>
+
+      <!-- COUNTDOWN -->
+      <section class="pt-12 pb-16">
+        <CountdownCard
+          targetDate="2026-01-31T18:00:00-04:00"
+          client:load
+        />
+      </section>
+
+    </div>
+  </main>
+</Base>

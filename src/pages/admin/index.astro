@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import AdminGuestList from "../../components/AdminGuestList.jsx";
+---
+
+<Base>
+  <main class="min-h-screen bg-paper">
+    <header class="px-6 py-6 text-center border-b">
+      <h1 class="name-script text-[36px] text-wine">
+        Panel de Confirmaciones
+      </h1>
+      <p class="text-sm text-gray-500 mt-1">
+        Lista de invitados
+      </p>
+    </header>
+
+    <AdminGuestList client:load />
+  </main>
+</Base>

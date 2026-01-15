@@ -1,0 +1,92 @@
+---
+import Base from "../layouts/Base.astro";
+import SaveTheDateHero from "../components/SaveTheDateHero.jsx";
+import WeddingTimeline from "../components/WeddingTimeline.jsx";
+import CountdownCard from "../components/CountdownCard.jsx";
+import HandwrittenDate from "../components/HandwrittenDate.jsx";
+import LocationSection from "../components/LocationSection.jsx";
+import WeddingDetails from "../components/WeddingDetails.jsx";
+import DressCode from "../components/DressCode.jsx";
+import guests from "../data/guests.json";
+
+const { id } = Astro.params;
+
+const guest = guests.find(g => g.id === '101');
+const guestName = guest ? guest.name : "Invitado Especial";
+
+
+---
+
+<Base>
+  <main class="bg-wine min-h-screen flex justify-center">
+    <div class="w-full max-w-md bg-paper">
+
+      
+      <div class="relative overflow-hidden">
+        {/* Imagen */}
+        <img
+          src="/photos/boda.png"
+          alt="Sobre de boda"
+          class="w-full block"
+        />
+
+         <!-- Degradado inferior -->
+        <div
+          class="pointer-events-none absolute bottom-0 left-0 right-0
+                h-20
+                bg-gradient-to-b from-transparent via-paper/70 to-paper">
+        </div>
+        {/* Texto overlay */}
+        <div class="absolute  left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">
+          <p class="name-script text-[33px] text-wine mt-10">
+            Invitación Especial
+          </p>
+          <p class="text-sm text-gray-500 mb-9">
+            Estimado/a
+          </p>
+
+          <h2 class="name-script text-[16px] text-wine">
+            {guestName}
+          </h2>
+
+        </div>
+      </div>
+
+
+      <HandwrittenDate
+        month="Enero"
+        client:load
+      />
+
+      <LocationSection client:load />
+
+      <!-- <SaveTheDateHero
+        couple="Andrés & Valeria"
+        dateLine="31 Enero 2026 · 6:00 PM"
+        locationLine="Santo Domingo, RD"
+        photoSrc="/photos/couple.png"
+        client:load
+      /> -->
+
+      <section>
+        <WeddingTimeline client:load />
+
+      </section>
+
+      <section>
+        <DressCode client:load />
+      </section>
+      <section>
+        <!-- <WeddingDetails client:load /> -->
+
+      </section>
+        <CountdownCard
+        targetDate="2026-01-31T18:00:00-04:00"
+        client:load
+      />
+
+     
+
+    </div>
+  </main>
+</Base>
