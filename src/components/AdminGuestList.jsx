@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import ShareBotton from './ShareButton.jsx'
 
 export default function AdminGuestList() {
   const [guests, setGuests] = useState([]);
@@ -45,6 +46,7 @@ export default function AdminGuestList() {
             <tr className="border-b ">
               <th className="text-left py-2">Nombre</th>
               <th className="text-center py-2">Estado</th>
+              <th className="text-center py-2">Action</th>
             </tr>
           </thead>
 
@@ -62,6 +64,13 @@ export default function AdminGuestList() {
                       ❌
                     </span>
                   )}
+                </td>
+                <td>
+                  <ShareBotton
+                    guestId={guest.id}
+                    guestName={guest.name}
+                    client:load
+                  />
                 </td>
               </tr>
             ))}

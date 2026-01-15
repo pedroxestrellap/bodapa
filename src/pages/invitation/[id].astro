@@ -7,6 +7,7 @@ import WeddingDetails from "../../components/WeddingDetails.jsx";
 import CountdownCard from "../../components/CountdownCard.jsx";
 import DressCode from "../../components/DressCode.jsx";
 import guests from "../../data/guests.json";
+import ShareButton from "../../components/ShareButton.jsx";
 
 export function getStaticPaths() {
   return guests.map((guest) => ({
@@ -82,15 +83,15 @@ const guestName = guest ? guest.name : "Invitado Especial";
       <section class="pt-10">
         <WeddingDetails guestId={id} client:load />
 
-      </section>
-
       <!-- COUNTDOWN -->
-      <section class="pt-12 pb-16">
+      <section class="pt-12 pb-16 text-center">
         <CountdownCard
           targetDate="2026-01-31T18:00:00-04:00"
           client:load
         />
       </section>
+
+      
 
     </div>
   </main>
