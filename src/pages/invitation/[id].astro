@@ -7,17 +7,17 @@ import WeddingDetails from "../../components/WeddingDetails.jsx";
 import CountdownCard from "../../components/CountdownCard.jsx";
 import DressCode from "../../components/DressCode.jsx";
 import guests from "../../data/guests.json";
-import ShareButton from "../../components/ShareButton.jsx";
-
-export function getStaticPaths() {
-  return guests.map((guest) => ({
-    params: { id: guest.id },
-  }));
-}
+import { supabase } from "../../lib/supabase";
 
 const { id } = Astro.params;
-const guest = guests.find((g) => g.id === id);
-const guestName = guest ? guest.name : "Invitado Especial";
+
+const { data: guest, error } = await supabase
+  .from("guests")
+  .select("*")
+  .eq("id", id)
+  .single();
+
+const guestName = guest?.name ?? "Invitado Especial";
 ---
 
 <Base>
